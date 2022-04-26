@@ -8,8 +8,8 @@ gcloud sql connect gcp5 --user=root
 
 mkdir gcf_sql
 cd gcf_sql/
-nano main.py
-nano requirements.txt
+nano index.js
+nano package.json
 
 
 gcloud sql instances describe gcp5 | grep connectionName | awk {'print $2'}

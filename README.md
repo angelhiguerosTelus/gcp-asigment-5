@@ -38,13 +38,13 @@ CREATE TABLE albums(
 );
 
 ```
-# CLOUD FUNTION
+# CLOUD FUNCTION
 ```sh
 # Crear función
 mkdir gcf_sql
 cd gcf_sql/
-touch main.py
-touch requirements.txt
+nano index.js
+nano package.json
 
 # Obtener la cadena de conexion a cloud sql
 gcloud sql instances describe gcp5 | grep connectionName | awk {'print $2'}
@@ -53,5 +53,5 @@ gcloud sql instances describe gcp5 | grep connectionName | awk {'print $2'}
 gcloud functions deploy getUsers --runtime nodejs10 --trigger-http
 
 # Obtener la url de la funcion
-gcloud beta functions describe getUsers | grep url | awk {'print $2'}
+gcloud functions describe getUsers | grep url | awk {'print $2'}
 ```
