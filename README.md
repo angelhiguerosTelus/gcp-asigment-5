@@ -58,7 +58,7 @@ gcloud functions describe getUsers | grep url | awk {'print $2'}
 
 
 # CLOUD FUNCTION
-```sh
+```js
 var mysql = require("mysql");
 
 # Datos de la conexión
