@@ -38,7 +38,7 @@ CREATE TABLE albums(
 );
 
 ```
-# CLOUD FUNCTION
+# CREACION DE CLOUD FUNCTION
 ```sh
 # Crear función
 mkdir gcf_sql
@@ -54,4 +54,52 @@ gcloud functions deploy getUsers --runtime nodejs10 --trigger-http
 
 # Obtener la url de la funcion
 gcloud functions describe getUsers | grep url | awk {'print $2'}
+```
+
+
+# CLOUD FUNCTION
+```sh
+var mysql = require("mysql");
+
+# Datos de la conexión
+var pool = mysql.createPool({
+  connectionLimit: 10,
+  host: "35.222.32.177",
+  user: "root",
+  password: "root",
+  database: "assigment",
+});
+
+# Verificar conexión
+pool.getConnection((err, connection) => {
+  if (err) {
+    if (err.code === "PROTOCOL_CONNECTION_LOST") {
+      console.error("Database connection was closed.");
+    }
+    if (err.code === "ER_CON_COUNT_ERROR") {
+      console.error("Database has too many connections.");
+    }
+    if (err.code === "ECONNREFUSED") {
+      console.error("Database connection was refused.");
+    }
+  }
+  if (connection) connection.release();
+  return;
+});
+
+# Crear función
+exports.getUsers = (req, res) => {
+
+  # Obtener todos los usarios
+  pool.query("SELECT * FROM users", function (err, result, fields) {
+    if (err) {
+      res.status(200).send(result);
+      throw new Error(err);
+    }
+
+    res.status(200).send(result);
+    console.log(result);
+  });
+};
+
 ```
