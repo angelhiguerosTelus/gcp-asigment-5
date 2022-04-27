@@ -61,7 +61,7 @@ gcloud functions describe getUsers | grep url | awk {'print $2'}
 ```js
 var mysql = require("mysql");
 
-# Datos de la conexión
+// Datos de la conexión
 var pool = mysql.createPool({
   connectionLimit: 10,
   host: "35.222.32.177",
@@ -70,7 +70,7 @@ var pool = mysql.createPool({
   database: "assigment",
 });
 
-# Verificar conexión
+//  Verificar conexión
 pool.getConnection((err, connection) => {
   if (err) {
     if (err.code === "PROTOCOL_CONNECTION_LOST") {
@@ -87,10 +87,10 @@ pool.getConnection((err, connection) => {
   return;
 });
 
-# Crear función
+//  Crear función
 exports.getUsers = (req, res) => {
 
-  # Obtener todos los usarios
+//    Obtener todos los usarios
   pool.query("SELECT * FROM users", function (err, result, fields) {
     if (err) {
       res.status(200).send(result);
